@@ -6,24 +6,109 @@
     <title>Ajax</title>
 </head>
 <body>
+   <p></p>
+	<h2></h2>
+	<h1 id="lol"></h1>
+	<table id="userTable">
+		<thead>
+			<tr>
+				<th>From</th>
+				<th>To</th>
+				<th>fare</th>
+				<th>Sum</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+			<input type="text" name="firstNumber" id="firstNumber">
+
+			<input type="text" name="secondNumber" id="secondNumber">
     <button>Get Data</button>
-    <p></p>
-
-
 
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script>
-		$('button').click(() => {
-			$.get('index.php', {}, (data) => {
+
+		// $('button').click(() => {
+		// 	$.get('index.php', {}, (data) => {
+				
+		// 		$( "body" )
+		// 		$('p').append( "Name: " + data.name ) // John
+		// 		$('h2').append( "Time: " + data.time )
+		// 		$('#lol').append( "roll: " + data.ride_from);
+		// 		data = JSON.parse(data);
+		// 		console.log(data);
+		// 		data.forEach(name => {
+		// 			console.log(data);
+		// 			$('p').append('Name is ' + name  + '<br>');
+		// 		})
+		// 	},"json");
+		// });
+
+
+		$('button').click(()=>{
+
+			let ff = $("#firstNumber").val();
+			let gg = $("#secondNumber").val();
+
+			$.post('index.php', {
+				firstNumber : ff,
+				secondNumber: gg
+			}, function(data, status){
+				// $('p').text(ff + ' + ' + gg + ' = ' + data);
 				data = JSON.parse(data);
-				console.log(data);
-				data.forEach(name => {
-					console.log(data);
-					$('p').append('Name is ' + name  + '<br>');
-				})
+				var len = data.length;
+				console.log(len);
+
+				 for(var i=0; i<len; i++){
+
+                var id = data[i].id;
+                var username = data[i].ride_from;
+                var name = data[i].ride_to;
+                var email = data[i].fare;
+                var sum = data[i].lol;
+                // var email = data[i].bill;
+                console.log(data[i].ride_to);
+
+                 var tr_str = "<tr>" +
+                    // "<td align='center'>" + (i+1) + "</td>" +
+                    "<td align='center'>" + username + "</td>" +
+                    "<td align='center'>" + name + "</td>" +
+                    "<td align='center'>" + email + "</td>" +
+                    "<td align='center'>" + sum + "</td>" +
+                    "</tr>";
+
+                $("#userTable tbody").append(tr_str);
+            		}
 			});
-		});
+
+    // $.ajax({
+    //     url: 'index.php',
+    //     type: 'get',
+    //     dataType: 'JSON',
+    //     success: function(response){
+
+    //         var len = response.length;
+    //         for(var i=0; i<len; i++){
+    //             var id = response[i].id;
+    //             var username = response[i].ride_from;
+    //             var name = response[i].ride_to;
+    //             var email = response[i].fare;
+    //             console.log(response[i].fare);
+
+    //             var tr_str = "<tr>" +
+    //                 // "<td align='center'>" + (i+1) + "</td>" +
+    //                 "<td align='center'>" + username + "</td>" +
+    //                 "<td align='center'>" + name + "</td>" +
+    //                 "<td align='center'>" + email + "</td>" +
+    //                 "</tr>";
+
+    //             $("#userTable tbody").append(tr_str);
+    //         }
+
+    //     }
+    // });
+});
     </script>
     
 

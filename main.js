@@ -21,12 +21,13 @@ minus.addEventListener("click",function(){
     
     var pulsIconData = document.getElementById("number").value;
     var num = parseFloat(pulsIconData);
-    if(data>0){
+    if(data>1){
         data = num -1;
         var price = data * product_price;
         document.getElementById("total").innerText = data;
         document.getElementById("number").value = data;
         document.getElementById("price").innerText = price;
+        
 
     }
     
